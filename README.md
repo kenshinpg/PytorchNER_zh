@@ -1,0 +1,2 @@
+# PytorchNER
+这是我ehr-journey项目的一个命名实体识别的子项目，主要实现使用了基于字向量的Bert与BiLSTM模型的网络。演示使用了CCKS2019task1数据集，并实现了django接口。
