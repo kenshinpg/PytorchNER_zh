@@ -10,8 +10,8 @@ from configs.confighelper import config_loader, args_parser
 from dataset.preprocess import CCKS2019NER
 from dataset.conll import conll_to_train_test_dev
 from dataset.processor import CCKS2019Processor
-from train.trainer import BERTTrainer
-from train.eval import BertPredictor
+from train.trainer import Trainer
+from train.eval import Predictor
 from utils.datautils import check_dir
 
 dataset_name_to_class = {
@@ -40,7 +40,7 @@ def get_NER_result(request):
         processor = processor_class()
         for model_class in model_class:
           print('%s Model Outputs:')
-          predicter = BertPredictor(configs, model_class, processor)
+          predicter = Predictor(configs, model_class, processor)
           entities_, result_ = predicter.predict_one(sentence)
           print(entities_)
 
