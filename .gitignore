@@ -1,0 +1,13 @@
+data/
+datasets/
+logs/
+output/
+papers/
+*.pdf
+
+*.pyc
+.ipynb_checkpoints
+.idea/
+runs/
+.vscode/
+tmp/

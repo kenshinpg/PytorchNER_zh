@@ -1,0 +1,32 @@
+
+# coding: utf-8
+
+dataset: ccks2019
+
+# 数据相关参数
+data_path: ./data/ccks2019/
+txt_path: ../datasets/ccks2019/
+label_file: ./data/ccks2019/conll.txt  
+
+label:
+  class2label: 
+    实验室检验: LABCHECK
+    影像检查: PICCHECK
+    手术: SURGERY
+    疾病和诊断: DISEASE
+    药物: DRUGS
+    解剖部位: ANABODY    
+  label2id:
+    O: 1
+    B-LABCHECK: 2
+    I-LABCHECK: 3
+    B-PICCHECK: 4
+    I-PICCHECK: 5
+    B-SURGERY: 6
+    I-SURGERY: 7
+    B-DISEASE: 8
+    I-DISEASE: 9
+    B-DRUGS: 10
+    I-DRUGS: 11
+    B-ANABODY: 12
+    I-ANABODY: 13

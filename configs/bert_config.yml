@@ -1,0 +1,58 @@
+
+# coding: utf-8
+
+# coding: utf-8
+
+
+# global
+name: bert-pytorch
+model_class: [Bert, BertCRF, BertBiLSTMCRF]
+
+# path
+data_dir: ./data/
+finetune_model_dir: ./tmp/models/
+pretrained_model_dir: ../pretrained/chinese_wwm_ext_pytorch
+output_dir: ./tmp/outputs/
+
+# pretrain
+use_pretrained_embedding: True
+pretrain_embed_file: ../pretrained/sgns.baidubaike.bigram-char/sgns.baidubaike.bigram-char
+pretrain_embed_pkl: ./tmp/outputs/pretrain_word_embeddings.pkl
+requires_grad: True
+
+# device
+use_cuda: True
+gpu_memory: 8192
+
+# model
+dropout_rate: 0.2
+random_seed: 1301
+max_seq_length: 256
+lower_case: True
+
+# optimizer
+optimizer_type: adamw
+learning_rate: !!float 5e-5
+warmup_proportion: 0.1
+max_grad_norm: 1.0
+weight_decay: 0.01
+l2_rate: 1.0e-8
+momentum: 0.
+lr_decay: 0.05
+
+# epoch
+batch_size: 12
+nb_epoch: 15
+save_checkpoint: False
+average_batch: False
+
+# early stopping
+max_patience: 5
+
+# rnn
+bert_embedding: 768
+rnn_hidden: 100
+rnn_layers: 1
+
+# eval
+evalset: test
