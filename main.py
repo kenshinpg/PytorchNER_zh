@@ -3,15 +3,16 @@
 
 import os
 from configs.confighelper import config_loader, args_parser
-from dataset.preprocess import CCKS2019NER
+from dataset.preprocess import CCKS2019NER, CCKS2017NER
 from dataset.conll import conll_to_train_test_dev
-from dataset.processor import CCKS2019Processor
+from dataset.processor import CCKS2019Processor, CCKS2017Processor
 from train.trainer import Trainer
 from train.eval import Predictor
 from utils.datautils import check_dir
 
 dataset_name_to_class = {
-	'CCKS2019': (CCKS2019NER, CCKS2019Processor, './configs/ccks2019.yml')
+	'CCKS2019': (CCKS2019NER, CCKS2019Processor, './configs/ccks2019.yml'),
+	'CCKS2017': (CCKS2017NER, CCKS2017Processor, './configs/ccks2017.yml')
 }
 
 def main():

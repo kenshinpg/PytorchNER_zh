@@ -1,0 +1,29 @@
+
+# coding: utf-8
+
+dataset: ccks2017
+
+# 数据相关参数
+data_path: ./data/ccks2017/
+txt_path: ../datasets/ccks2017/
+label_file: ./data/ccks2017/conll.txt  
+
+label:
+  class2label: 
+    检查和检验: CHECK
+    症状和体征: SIGNS
+    疾病和诊断: DISEASE
+    治疗: TREATMENT
+    身体部位: BODY    
+  label2id:
+    O: 1
+    B-CHECK: 2
+    I-CHECK: 3
+    B-SIGNS: 4
+    I-SIGNS: 5
+    B-DISEASE: 6
+    I-DISEASE: 7
+    B-TREATMENT: 8
+    I-TREATMENT: 9
+    B-BODY: 10
+    I-BODY: 11

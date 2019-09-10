@@ -17,6 +17,7 @@ class CCKS2019NER(object):
         self.random_seed = random_seed
         self.trainfile = configs['label_file']
         self.configs = configs
+        check_dir(configs['data_path'])
 
         self.txtloader()
         self.label_dict = configs['label']['label2id']

@@ -111,3 +111,30 @@ class CCKS2019Processor(DataProcessor):
 	      'ANABODY': '解剖部位'
 		}
 		return label_entities_map
+
+class CCKS2017Processor(DataProcessor):
+	def get_train_examples(self, data_dir, tokenizer = None):
+		return DataProcessor.create_examples_from_conll_format_file(os.path.join(data_dir, 'train.txt'), 'train', tokenizer = tokenizer, all_Os = True)
+
+	def get_dev_examples(self, data_dir, tokenizer = None):
+	    return DataProcessor.create_examples_from_conll_format_file(os.path.join(data_dir, 'dev.txt'), 'dev', tokenizer = tokenizer, all_Os = True)
+
+	def get_test_examples(self, data_dir, tokenizer = None):
+	    return DataProcessor.create_examples_from_conll_format_file(os.path.join(data_dir, 'test.txt'), 'test', tokenizer = tokenizer, all_Os = True)
+
+	@staticmethod
+	def get_labels():
+		label_type = ['O', 'B-CHECK','I-CHECK','B-SIGNS','I-SIGNS','B-DISEASE','I-DISEASE','B-TREATMENT','I-TREATMENT',
+    					'B-BODY','I-BODY']
+		return label_type
+
+	@staticmethod
+	def get_labels_to_entities():
+		label_entities_map = {
+	      'CHECK': '检查和检验',
+	      'SIGNS': '症状和体征',
+	      'DISEASE': '疾病和诊断',
+	      'TREATMENT': '治疗',
+	      'BODY': '身体部位',
+		}
+		return label_entities_map

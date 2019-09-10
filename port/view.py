@@ -7,15 +7,16 @@ from django.http import HttpResponse
 import json
 from utils.datautils import json_dump
 from configs.confighelper import config_loader, args_parser
-from dataset.preprocess import CCKS2019NER
+from dataset.preprocess import CCKS2019NER, CCKS2017NER
 from dataset.conll import conll_to_train_test_dev
-from dataset.processor import CCKS2019Processor
+from dataset.processor import CCKS2019Processor, CCKS2017Processor
 from train.trainer import Trainer
 from train.eval import Predictor
 from utils.datautils import check_dir
 
 dataset_name_to_class = {
-  'ccks2019': (CCKS2019NER, CCKS2019Processor, './configs/ccks2019.yml')
+  'CCKS2019': (CCKS2019NER, CCKS2019Processor, './configs/ccks2019.yml'),
+  'CCKS2017': (CCKS2017NER, CCKS2017Processor, './configs/ccks2017.yml')
 }
 
 def get_NER_result(request): 
@@ -27,13 +28,13 @@ def get_NER_result(request):
         json_data = json.loads(request.POST['data'], encoding = 'utf-8');
         sentence = json_data[0]['sentence']
         model_class = json_data[0]['model_class']
-        dataset = json_data[0]['dataset'].lower()
+        dataset = json_data[0]['dataset']
 
         data_vocab_class, processor_class, conll_config_path = dataset_name_to_class[dataset]
 
         configs = config_loader('./configs/config.yml')
-        configs['finetune_model_dir'] = os.path.join(configs['finetune_model_dir'], dataset)
-        configs['output_dir'] = os.path.join(configs['output_dir'], dataset)
+        configs['finetune_model_dir'] = os.path.join(configs['finetune_model_dir'], dataset.lower())
+        configs['output_dir'] = os.path.join(configs['output_dir'], dataset.lower())
 
         result = {}
 
