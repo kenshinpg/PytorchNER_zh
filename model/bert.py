@@ -10,17 +10,16 @@ from configs.confighelper import config_loader
 
 class Bert(BertPreTrainedModel):
 
-    def __init__(self, config):
+    def __init__(self, config, model_configs):
         super(Bert, self).__init__(config)
-        configs = config_loader('configs/config.yml')
         self.num_labels = config.num_labels
         self.bert = BertModel(config)
         self.hidden_dim = config.hidden_size
-        self.use_cuda = configs['use_cuda'] and torch.cuda.is_available()
-        self.dropout = nn.Dropout(configs['dropout_rate'])
+        self.use_cuda = model_configs['use_cuda'] and torch.cuda.is_available()
+        self.dropout = nn.Dropout(model_configs['dropout_rate'])
         self.hidden2label = nn.Linear(self.hidden_dim, self.num_labels)
         self.loss_function = CrossEntropyLoss()
-        self.max_seq_length = configs['max_seq_length']
+        self.max_seq_length = model_configs['max_seq_length']
 
         self.apply(self.init_weights)
 
@@ -64,13 +63,12 @@ class Bert(BertPreTrainedModel):
 
 class BertCRF(BertPreTrainedModel):
 
-    def __init__(self, config):
+    def __init__(self, config, model_configs):
         super(BertCRF, self).__init__(config)
-        configs = config_loader('configs/config.yml')
         self.num_labels = config.num_labels
-        self.max_seq_length = configs['max_seq_length']
+        self.max_seq_length = model_configs['max_seq_length']
         self.bert = BertModel(config)
-        self.use_cuda = configs['use_cuda'] and torch.cuda.is_available()
+        self.use_cuda = model_configs['use_cuda'] and torch.cuda.is_available()
         self.crf = CRF(target_size = self.num_labels,
                        use_cuda = self.use_cuda,
                        average_batch = False)
@@ -79,7 +77,7 @@ class BertCRF(BertPreTrainedModel):
         # lstm的hidden_dim和init_hidden的hidden_dim是一致的
         # 是输出层hidden_dim的1/2
         self.hidden_dim = config.hidden_size
-        self.dropout = nn.Dropout(configs['dropout_rate'])
+        self.dropout = nn.Dropout(model_configs['dropout_rate'])
         self.hidden2label = nn.Linear(self.hidden_dim, self.num_labels + 2)
         self.apply(self.init_weights)
 
@@ -112,13 +110,12 @@ class BertCRF(BertPreTrainedModel):
 
 class BertBiLSTMCRF(BertPreTrainedModel):
 
-    def __init__(self, config):
+    def __init__(self, config, model_configs):
         super(BertBiLSTMCRF, self).__init__(config)
-        configs = config_loader('configs/config.yml')
         self.num_labels = config.num_labels
-        self.max_seq_length = configs['max_seq_length']
+        self.max_seq_length = model_configs['max_seq_length']
         self.bert = BertModel(config)
-        self.use_cuda = configs['use_cuda'] and torch.cuda.is_available()
+        self.use_cuda = model_configs['use_cuda'] and torch.cuda.is_available()
         self.crf = CRF(target_size = self.num_labels,
                        use_cuda = self.use_cuda,
                        average_batch = False)
@@ -127,14 +124,14 @@ class BertBiLSTMCRF(BertPreTrainedModel):
         # lstm的hidden_dim和init_hidden的hidden_dim是一致的
         # 是输出层hidden_dim的1/2
         self.hidden_dim = config.hidden_size
-        self.rnn_layers = configs['rnn_layers']
+        self.rnn_layers = model_configs['rnn_layers']
         self.lstm = nn.LSTM(input_size = bert_embedding, # bert embedding
                             hidden_size = self.hidden_dim,
                             num_layers = self.rnn_layers, 
                             batch_first = True,                             
-                            # dropout = configs['train']['dropout_rate'],
+                            # dropout = model_configs['train']['dropout_rate'],
                             bidirectional = True)
-        self.dropout = nn.Dropout(configs['dropout_rate'])
+        self.dropout = nn.Dropout(model_configs['dropout_rate'])
         self.hidden2label = nn.Linear(self.hidden_dim * 2, self.num_labels + 2)
         self.apply(self.init_weights)
 

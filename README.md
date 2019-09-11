@@ -1,5 +1,5 @@
 # PytorchNER_zh
-这是我ehr-journey项目的一个命名实体识别的子项目，主要实现基于字向量finetune的Bert与BiLSTM模型的网络。演示使用了CCKS2019task1数据集，并实现了django接口。
+这是我ehr-journey项目的一个命名实体识别的子项目，主要实现基于中文预训练字向量finetune的Bert与BiLSTM模型的网络。演示使用了CCKS2019task1数据集，并实现了django接口。
 
 本人只是个NLP的新手，目前只是个玩具，欢迎大佬们指正。
 

@@ -42,7 +42,7 @@ def load_pretrain(configs, model_class, fine_tune_dir, processor, eval = False):
 		bert_config = BertConfig.from_pretrained(model_pretrained_path, 
 											num_labels = len(label_list),
 											finetuning_task="ner")
-		model = model_class_.from_pretrained(model_pretrained_path, config = bert_config)
+		model = model_class_.from_pretrained(model_pretrained_path, config = bert_config, model_configs = configs)
 
 	elif model_class in ['BiLSTM', 'BiLSTMCRF']:
 		configs['num_labels'] = len(label_list)
